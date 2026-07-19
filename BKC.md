@@ -113,3 +113,131 @@ Device name     : Intel(R) Graphics [0xe211]
 - The XPU wheels from `https://download.pytorch.org/whl/xpu` bundle Intel oneAPI runtime libraries (MKL, oneCCL, SYCL runtime, etc.), so a separate oneAPI toolkit installation is **not** required.
 - BMG (Battlemage) uses the Xe2 architecture. Ensure your kernel has the `xe` driver (check with `xpu-smi discovery`).
 - The `render` group permission is required to access `/dev/dri/renderD*` device nodes.
+
+## BKC: Building a local vLLM-Omni XPU environment with uv
+
+This is a validated flow for building a working local `vllm` + `vllm-omni`
+environment on Intel XPU using `uv`, with `vllm` built from source first and
+`vllm-omni` installed into the same environment.
+
+### Validated versions
+
+| Component   | Version / Detail |
+|-------------|------------------|
+| Python      | 3.12.3 |
+| uv          | 0.11.25 |
+| torch       | 2.11.0+xpu |
+| torchvision | 0.26.0+xpu |
+| torchaudio  | 2.11.0+xpu |
+| triton-xpu  | 3.7.0 |
+| triton      | not installed |
+| vllm        | 0.23.0+xpu |
+| vllm-omni   | 0.23.0+xpu |
+
+### Repo layout
+
+Assume both repos are cloned locally:
+
+```bash
+export OMNI_REPO=/path/to/vllm-omni
+export VLLM_REPO=/path/to/vllm
+export OMNI_VENV=$OMNI_REPO/.venv-xpu
+```
+
+They can live anywhere. They do not need to share the same parent directory.
+
+### 1. Create the uv environment
+
+```bash
+cd "$OMNI_REPO"
+uv venv --python 3.12 "$OMNI_VENV"
+source "$OMNI_VENV/bin/activate"
+```
+
+### 2. Install the XPU PyTorch stack
+
+```bash
+uv pip install \
+  --index-url https://download.pytorch.org/whl/xpu \
+  torch==2.11.0+xpu \
+  torchvision==0.26.0+xpu \
+  torchaudio==2.11.0+xpu
+
+uv pip install \
+  --extra-index-url https://download.pytorch.org/whl/xpu \
+  triton-xpu==3.7.0
+```
+
+### 3. Build and install local vLLM first
+
+Follow the vLLM XPU source-build path, then install into the same `uv` env:
+
+```bash
+cd "$VLLM_REPO"
+source "$OMNI_VENV/bin/activate"
+VLLM_TARGET_DEVICE=xpu uv pip install --no-build-isolation -e . -v
+```
+
+### 4. Install local vLLM-Omni
+
+```bash
+cd "$OMNI_REPO"
+source "$OMNI_VENV/bin/activate"
+uv pip install -e . -v
+```
+
+### 5. Verify the environment
+
+Check XPU visibility:
+
+```bash
+cd "$OMNI_REPO"
+source "$OMNI_VENV/bin/activate"
+python - <<'PY'
+import torch
+print("torch", torch.__version__)
+print("xpu_available", torch.xpu.is_available())
+print("xpu_count", torch.xpu.device_count())
+PY
+```
+
+Check key packages:
+
+```bash
+cd "$OMNI_REPO"
+source "$OMNI_VENV/bin/activate"
+uv pip list | rg '^(torch|torchaudio|torchvision|transformers|triton|triton-xpu|vllm|vllm-omni)\b'
+```
+
+Check imports:
+
+```bash
+cd "$OMNI_REPO"
+source "$OMNI_VENV/bin/activate"
+python - <<'PY'
+import vllm
+import vllm_omni
+print("vllm ok")
+print("vllm_omni ok")
+PY
+```
+
+Expected high-level result:
+
+- `torch.xpu.is_available()` is `True`
+- `triton-xpu==3.7.0` is installed
+- plain `triton` is absent
+- both `vllm` and `vllm-omni` import successfully
+
+### Runtime notes
+
+- Install `vllm` before `vllm-omni` in this XPU flow.
+- Do not install plain `triton` into this environment. Keep only `triton-xpu`.
+- For multi-card runs, a validated example is:
+
+```bash
+ZE_AFFINITY_MASK=4,5,6,7
+VLLM_WORKER_MULTIPROC_METHOD=spawn
+```
+
+This exposes 4 visible XPU devices to the process and matches TP=4 serving.
