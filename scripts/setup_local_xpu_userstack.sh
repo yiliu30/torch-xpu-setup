@@ -22,18 +22,16 @@ urls=(
 for url in "${urls[@]}"; do
   file="$DEB_DIR/${url##*/}"
   if [[ ! -f "$file" ]]; then
-    wget -q -O "$file" "$url"
+    wget -q -O "$file.tmp" "$url" && mv "$file.tmp" "$file"
   fi
 done
 
-if [[ ! -x "$ROOT_DIR/usr/bin/ocloc-26.22.1" ]]; then
+if [[ ! -x "$ROOT_DIR/usr/bin/ocloc" ]]; then
   rm -rf "$ROOT_DIR"
   mkdir -p "$ROOT_DIR"
   for deb in "$DEB_DIR"/*.deb; do
     dpkg-deb -x "$deb" "$ROOT_DIR"
   done
 fi
-
-ln -sf ocloc-26.22.1 "$ROOT_DIR/usr/bin/ocloc"
 
 printf '%s\n' "$ROOT_DIR"
