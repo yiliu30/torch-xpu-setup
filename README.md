@@ -12,6 +12,20 @@ Validated setup notes and helper scripts for PyTorch XPU on Intel Battlemage.
 - [BKC.md](./BKC.md): original PyTorch 2.11 BKC
 - [BKC_NEW_USER.md](./BKC_NEW_USER.md): original 2.11 new-user setup
 - [BKC_2.13_ONEAPI_2026.md](./BKC_2.13_ONEAPI_2026.md): new PyTorch 2.13 + oneAPI 2026 runtime/compiler-path BKC
+- [CUDA ↔ Intel XPU Comparison](./index.md): CUDA-to-XPU equivalents for common workflows (also the GitHub Pages homepage)
+
+## GitHub Pages
+
+This repo is set up as a GitHub Pages site (Jekyll + Cayman theme). To enable:
+
+1. **Settings → Pages → Source → Deploy from a branch**
+2. Branch: `master` — folder: `/` (root)
+
+The homepage renders the CUDA ↔ XPU comparison at
+`https://yiliu30.github.io/torch-xpu-setup/`.
+
+Any markdown file added at the repo root is automatically built and published as
+a themed page on push — no per-file setup needed.
 
 ## Quick Start
 
