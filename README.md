@@ -16,7 +16,7 @@ Validated setup notes and helper scripts for PyTorch XPU on Intel Battlemage.
 
 ## GitHub Pages
 
-This repo is set up as a GitHub Pages site (Jekyll + Cayman theme). To enable:
+This repo is set up as a GitHub Pages site (Jekyll + Just the Docs theme). To enable:
 
 1. **Settings → Pages → Source → Deploy from a branch**
 2. Branch: `master` — folder: `/` (root)
@@ -26,6 +26,21 @@ The homepage renders the CUDA ↔ XPU comparison at
 
 Any markdown file added at the repo root is automatically built and published as
 a themed page on push — no per-file setup needed.
+
+### Adding a heading table of contents
+
+Just the Docs provides the sidebar (page navigation) but no per-page heading
+index. To index a page's sub-sections (e.g. `PyTorch Device APIs`), add
+Kramdown's built-in TOC right after the title:
+
+```markdown
+# Title
+
+* TOC
+{:toc}
+```
+
+This renders a list of the page's headings with anchor links.
 
 ## Quick Start
 
