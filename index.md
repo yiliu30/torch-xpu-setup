@@ -67,6 +67,12 @@ ONEAPI_DEVICE_SELECTOR=level_zero:7
 > `xpu-smi ps` lists processes and their GPU memory usage, so it is the closest
 > simple equivalent rather than an exact match.
 
+## PyTorch Installation
+```bash
+uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu
+```
+
+
 ## PyTorch Device APIs
 
 | CUDA | Intel XPU |
