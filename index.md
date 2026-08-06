@@ -58,7 +58,7 @@ ONEAPI_DEVICE_SELECTOR=level_zero:7
 | Task | NVIDIA GPU | Intel XPU |
 |---|---|---|
 | Show GPU status | `nvidia-smi` | `xpu-smi` |
-| List GPUs | `nvidia-smi -L` | `xpu-smi --list-gpus` |
+| List GPUs | `nvidia-smi -L` | `sudo xpu-smi discovery` |
 | Show GPU processes | `nvidia-smi pmon` | `xpu-smi ps` |
 | Show topology matrix | `nvidia-smi topo -m` | `xpu-smi topology -m` |
 | List SYCL-visible devices | — | `sycl-ls` |
