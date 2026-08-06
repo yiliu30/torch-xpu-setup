@@ -7,6 +7,9 @@ nav_order: 1
 
 # CUDA and Intel XPU Command Comparison
 
+* TOC
+{:toc}
+
 Practical equivalents for common NVIDIA CUDA and Intel XPU workflows.
 
 > **Verified:** August 6, 2026  

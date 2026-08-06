@@ -6,6 +6,9 @@ nav_order: 3
 
 # BKC: PyTorch XPU 2.13 with oneAPI 2026 on Intel Battlemage (BMG)
 
+* TOC
+{:toc}
+
 Best Known Configuration for running PyTorch 2.13 XPU wheels on Intel Battlemage with the 2026 Intel runtime stack and a compatible XPU compiler path for `torch.compile`.
 
 ## Validated Configuration

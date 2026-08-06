@@ -4,11 +4,10 @@ remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
 
-# Render every markdown page with the theme layout and a table of
-# contents of its headings automatically, so new docs need no front matter.
+# Render every markdown page with the theme layout automatically,
+# so new docs need no front matter.
 defaults:
   - scope:
       path: ""
     values:
       layout: "default"
-      has_toc: true

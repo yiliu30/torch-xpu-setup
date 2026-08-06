@@ -6,6 +6,9 @@ nav_order: 4
 
 # BKC: New User Setup for PyTorch XPU on Intel Battlemage (BMG)
 
+* TOC
+{:toc}
+
 Guide for setting up a **new user account** on a node where the Intel GPU driver and userspace packages are already installed by root.
 
 ## Prerequisites
