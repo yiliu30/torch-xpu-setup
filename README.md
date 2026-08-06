@@ -13,6 +13,7 @@ Validated setup notes and helper scripts for PyTorch XPU on Intel Battlemage.
 - [BKC_NEW_USER.md](./BKC_NEW_USER.md): original 2.11 new-user setup
 - [BKC_2.13_ONEAPI_2026.md](./BKC_2.13_ONEAPI_2026.md): new PyTorch 2.13 + oneAPI 2026 runtime/compiler-path BKC
 - [CUDA ↔ Intel XPU Comparison](./index.md): CUDA-to-XPU equivalents for common workflows (also the GitHub Pages homepage)
+- [BKC_TEMPLATE.md](./BKC_TEMPLATE.md): copy this template to add a new BKC/doc to the site
 
 ## GitHub Pages
 
