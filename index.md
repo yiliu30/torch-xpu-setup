@@ -72,6 +72,11 @@ ONEAPI_DEVICE_SELECTOR=level_zero:7
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu
 ```
 
+Check devices:
+```bash
+python -c 'import torch; print(f"xpu:{torch.xpu.device_count()}")'
+```
+
 
 ## PyTorch Device APIs
 
