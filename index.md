@@ -2,6 +2,7 @@
 layout: default
 title: CUDA to Intel XPU Command Comparison
 description: Practical equivalents for common NVIDIA CUDA and Intel XPU workflows.
+nav_order: 1
 ---
 
 # CUDA and Intel XPU Command Comparison

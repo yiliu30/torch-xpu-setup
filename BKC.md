@@ -1,3 +1,9 @@
+---
+layout: default
+title: BKC — PyTorch XPU 2.11 on Intel Battlemage
+nav_order: 2
+---
+
 # BKC: PyTorch XPU 2.11 on Intel Battlemage (BMG)
 
 Best Known Configuration for running PyTorch with XPU support on Intel Battlemage GPUs.

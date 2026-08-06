@@ -1,3 +1,9 @@
+---
+layout: default
+title: torch213 env
+nav_order: 5
+---
+
 # torch213
 
 Separate `uv` project for PyTorch `2.13` XPU wheels and the oneAPI `2026` wheel runtime.

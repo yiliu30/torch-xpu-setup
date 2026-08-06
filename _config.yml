@@ -1,8 +1,11 @@
 title: torch-xpu-setup
 description: Validated setup notes and helper scripts for PyTorch XPU on Intel Battlemage.
-remote_theme: pages-themes/cayman@v0.2.0
+remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
+
+# Just the Docs: generate a table of contents for every page
+has_toc: true
 
 # Render every markdown page with the theme layout automatically,
 # so new docs need no front matter.
