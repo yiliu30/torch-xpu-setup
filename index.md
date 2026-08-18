@@ -146,6 +146,20 @@ Notes:
 - Intel XPU containers require a compatible host GPU driver and the required Level Zero, SYCL, or PyTorch XPU runtime.
 - `--ipc=host` may help applications that use large shared-memory regions, but it is not required merely to expose the GPU.
 
+```bash
+docker run --rm \
+    --network=host \
+    --device /dev/dri:/dev/dri \
+    -v /dev/dri/by-path:/dev/dri/by-path \
+    -v ~/.cache/huggingface:/root/.cache/huggingface \
+    --env "HF_TOKEN=$HF_TOKEN" \
+    --ipc=host \
+    --privileged \
+    vllm/vllm-openai-xpu:latest  \
+    --model Qwen/Qwen3-0.6B
+```
+
+
 ## Basic Validation
 
 ```python
